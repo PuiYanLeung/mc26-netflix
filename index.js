@@ -39,19 +39,18 @@ const Film = mongoose.model(
 const main = async () => {
 
     if (argv.add) {
-
         try {
-             if (argv.add != null) {
-                 if (argv.genre == null) {
-                     argv.genre = "N/A"
-                 }
-                 if (argv.lang == null) {
-                     argv.lang = "N/A"
-                 }
-                 if (argv.age == null) {
-                     argv.age = 99
-                 }
-             }
+            if (argv.title != null) {
+                if (argv.genre == null) {
+                    argv.genre = "N/A"
+                }
+                if (argv.lang == null) {
+                    argv.lang = "N/A"
+                }
+                if (argv.age == null) {
+                    argv.age = 99
+                }
+            }
             const movie_add = new Film({ title: argv.title, genre: argv.genre, language: argv.lang, age: argv.age })
             await movie_add.save()
             console.log(`Adding: ${movie_add}`)
@@ -61,7 +60,7 @@ const main = async () => {
 
     } else if (argv.delete) {
 
-        const res = await Film.deleteOne({ title: argv.title })
+        const res = await Film.deleteMany({ title: argv.title })
         //const res = await Film.deleteOne({ _id: argv.title })
         console.log(`${res.deletedCount} record(s) deleted`)
 
@@ -70,9 +69,10 @@ const main = async () => {
         console.log(`${movie_edit.nModified} record(s) updated`)
 
     } else if (argv.search) {
-        console.log(await Film.find({title: argv.title}))
+            console.log(await Film.find({ title: argv.title }))
     }
-     else if (argv.list) {
+    else if (argv.list) {
+
         console.log(await Film.find({}))
     } else {
         console.log("Invalid option")
