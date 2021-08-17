@@ -59,7 +59,7 @@ const main = async () => {
             console.log(`Can't add ${argv.title}, already exists!`)
         }
 
-    } else if (argv.delete) { //write deleteMore
+    } else if (argv.delete) {
 
         const res = await Film.deleteOne({ title: argv.title })
         //const res = await Film.deleteOne({ _id: argv.title })
